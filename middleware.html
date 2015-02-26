@@ -108,7 +108,48 @@ URL: https://code.google.com/p/io-2012-slides
     </pre>
     <ul class="build">
       <li>Absolutly nothing.</li>
+      <li>just ugggly</li>
     </ul>
+  </slide>
+  <slide>
+    <hgroup>
+      <h2>Framework?</h2>
+    </hgroup>
+    <br>
+    <ul class="build">
+      <li>Yes, you can...</li>
+      <li>do I suggest it, no.</li>
+      <li>Overkill</li>
+      <li>bloated</li>
+      <li>net/http is awesome!</li>
+    </ul>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2><a href="https://github.com/justinas/alice"> Alice in Wonderland</a></h2>
+    </hgroup>
+    <br>
+      <h3>100 lines of code that addresses this</h3>
+      <li>allows for you to use pretty much any thing</li>
+      <li>keeps net/http</li>
+    <br>
+    <pre class="prettyprint" data-lang="go">
+      func main() {
+        alice.New(Middleware1, Middleware2, Middleware3).Then(App)
+      }
+    </pre>
+    <br>
+    <h2>or</h2>
+    <br>
+    <pre class="prettyprint" data-lang="go">
+      func main() {
+        alice.New(Middleware1)
+        .Append(Middleware2)
+        .Append(Middleware3)
+        .Then(App)
+      }
+    </pre>
   </slide>
   <slide class="backdrop"></slide>
 
