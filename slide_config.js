@@ -1,7 +1,7 @@
 var SLIDE_CONFIG = {
   // Slide settings
   settings: {
-    title: 'Golang Middleware',
+    title: 'Go Middleware',
     subtitle: 'Making it... oh so pretty',
     //eventInfo: {
     //  title: 'Google I/O',

@@ -36,12 +36,79 @@ URL: https://code.google.com/p/io-2012-slides
     </hgroup>
   </slide>
   <slide>
+    <hgroup>
+      <h2>Without Middleware...</h2>
+    </hgroup>
    <img src="images/clack-middleware-1.png" class="reflect" alt="request process" title="request process" style="margin: 0 auto; width:800px; display:block;"  >
     </article>
   </slide>
     <slide>
+    <hgroup>
+      <h2>With Middleware...</h2>
+    </hgroup>
    <img src="images/clack-middleware-2.png" class="reflect" alt="request process" title="request process" style="margin: 0 auto; width:800px; display:block;"  >
     </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>What can we use it for</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>throttling</li>
+        <li>Recovering from panics</li>
+        <li>Error Handling</li>
+        <li>auth layer</li>
+        <li>logging</li>
+        <li>blocking ALL THE THINGS!</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Implementating Custom Middleware:</h2>
+      <h3></h3>
+    </hgroup>
+    <ul class="build">
+    <li>
+    <pre class="prettyprint" data-lang="go">
+      type Handler interface {
+        <b>ServeHTTP(ResponseWriter, *Request)</b>
+      }
+    </pre>
+    </li>
+    <li>Lets write it.</li>
+    <li>
+      <pre class="prettyprint" data-lang="go">
+        func logger(next http.Handler) http.Handler {
+          fn := func(w http.ResponseWriter, r *http.Request) {
+            <b>next.ServeHTTP(w, r)</b>
+            log.Printf("[%s] %q \n", r.Method, r.URL.String())
+          }
+          // cast to HandlerFunc type
+          <b>return http.HandlerFunc(fn)</b>
+        }
+      </pre>
+    </li>
+    <li>Booyah</li>
+    </ul>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Now we need to chain...</h2>
+      <h3>Whats wrong with this?</h3>
+    </hgroup>
+    <pre class="prettyprint" data-lang="go">
+      func main(){
+        Middleware1(Middleware2(Middleware3(App)))
+      }
+    </pre>
+    <ul class="build">
+      <li>Absolutly nothing.</li>
+    </ul>
   </slide>
   <slide class="backdrop"></slide>
 
